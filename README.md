@@ -44,7 +44,7 @@ Output lands in `~/Daily Log/` as `YYYY-MM - DD - <one line of the day>.md`.
 **Clone straight into your Claude skills folder:**
 
 ```bash
-git clone https://github.com/USERNAME/claude-daily-log.git ~/.claude/skills/daily-log
+git clone https://github.com/ShockRock2004/claude-daily-log.git ~/.claude/skills/daily-log
 ```
 
 …then restart Claude Code (or start a new session). That's it — type `/daily-log`.
