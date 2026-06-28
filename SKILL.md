@@ -6,9 +6,9 @@ description: Compile everything Claude did today across ALL sessions and repos i
 # Daily Log — end-of-day learning guidebook
 
 Turn a full day of Claude Code work (across every session and repo) into a single
-dated markdown file written as a **teaching guide**, so the user can later
-re-implement the code by hand, understand *why* each decision was made, and speak
-to it confidently in interviews as their own work.
+dated markdown file written as a **teaching guide**, so the user can genuinely
+learn the work: re-implement the code by hand, understand *why* each decision was
+made, and be able to explain how it works because they actually understand it.
 
 The output is NOT a changelog. It is a **beginner's textbook** — written so simply
 and conversationally that someone with *no* software background could read it top
@@ -60,9 +60,9 @@ If the digest says no sessions were active, tell the user and stop.
 ### 2. Identify distinct features/tasks
 Group the day's work into **distinct pieces of work**, not one-section-per-session.
 Merge sessions/commits that advanced the same feature. A "piece of work" is
-something the user could describe as one accomplishment in an interview (e.g.
-"I fixed the verto agent call-delivery bug", "I built the predictive dialer
-abandon-rate cap"). Aim for the few things that actually mattered; don't pad with
+something the user could point to as one distinct piece of work (e.g.
+"the verto agent call-delivery bug fix", "the predictive dialer abandon-rate
+cap"). Aim for the few things that actually mattered; don't pad with
 trivia.
 
 ### 3. Get the real code for each piece
@@ -156,7 +156,7 @@ top to bottom with no prior context.
 - Use a short **"How to read this document"** note at the very top, and a **"The
   big picture (read this first)"** overview that explains the projects in plain
   terms (what is this product, who uses it, why).
-- Keep the interview talking points in plain, confident, one-sentence-claim form,
+- Keep the "how to explain it" points in plain, confident, one-sentence form,
   followed by the one clever insight to explain simply.
 - Be honest: clearly separate real shipped code from setup/exploration, and say so
   in plain words.
@@ -193,8 +193,8 @@ in plain English with commented snippets), the exact file `path`. Put a
 ### How you could do this yourself, step by step
 Numbered, concrete steps a beginner could follow.
 
-### How to talk about this (e.g. in an interview)
-- One plain-sentence claim of what was built.
+### How to explain it (once you understand it)
+- A plain one-sentence summary of what the work does.
 - The one clever insight, explained simply.
 - The trade-off to defend, in everyday terms.
 

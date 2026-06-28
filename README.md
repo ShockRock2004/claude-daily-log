@@ -1,18 +1,21 @@
 # Claude Daily Log
 
-You spent all day building things with Claude Code. This little tool reads every
-one of those sessions, works out what you actually built, and writes it up as a
-friendly study guide. The kind of thing you can read on the bus home, rebuild by
-hand later, and talk about confidently in an interview as your own work.
+Tired of prompting Claude all day and letting it debug and build everything, but
+never really understanding what happened under the hood? This tool is your saviour.
 
-Think of it as turning "the AI did it" into "I know exactly what got built, why,
-and how to do it again."
+At the end of the day it reads every one of your Claude Code sessions, works out
+what got built, and writes it up as a friendly study guide. The kind of thing you
+can read on the bus home and use to genuinely learn the code, so you could rebuild
+it by hand and explain how it works because you actually understand it.
+
+Think of it as turning "I watched the AI build it" into "I understand what got
+built, why, and how to do it again."
 
 ## What you get every day
 
 * **A study guide, not a boring changelog.** Every piece of work is explained from
   scratch. The problem, the fix, the real code with plain English commentary, how
-  to rebuild it yourself, things to say in an interview, and the lessons.
+  to rebuild it yourself, the key ideas to take away, and the lessons.
 * **It sees everything at once.** It reads your session history straight off the
   disk, so it pulls together all your Claude windows, even the ones still open, not
   just the one you ran it in.
