@@ -1,140 +1,122 @@
-# 📓 claude-daily-log
+# Claude Daily Log
 
-**Turn every day of [Claude Code](https://claude.com/claude-code) work into a beginner-friendly study guide — auto-rendered as a dark-mode PDF and synced to your phone via Google Drive.**
+You spent all day building things with Claude Code. This little tool reads every
+one of those sessions, works out what you actually built, and writes it up as a
+friendly study guide. The kind of thing you can read on the bus home, rebuild by
+hand later, and talk about confidently in an interview as your own work.
 
-You worked with an AI all day. This skill reads *all* of your Claude Code sessions
-(across every project, even ones still open), figures out what you actually built,
-and writes it up as a **teaching guide** — the kind you could read on the bus home,
-re-implement by hand, and confidently explain in an interview as your own work.
+Think of it as turning "the AI did it" into "I know exactly what got built, why,
+and how to do it again."
 
-It's the difference between *"the AI did it"* and *"I understand exactly what was
-built, why, and how to do it again."*
+## What you get every day
 
----
+* **A study guide, not a boring changelog.** Every piece of work is explained from
+  scratch. The problem, the fix, the real code with plain English commentary, how
+  to rebuild it yourself, things to say in an interview, and the lessons.
+* **It sees everything at once.** It reads your session history straight off the
+  disk, so it pulls together all your Claude windows, even the ones still open, not
+  just the one you ran it in.
+* **It stays honest.** It keeps real shipped code separate from setup and poking
+  around. No made up wins.
+* **It teaches you git.** There is a whole section explaining the git commands you
+  used that day. What each one did, why, and how to run it yourself.
+* **A standup you can paste.** It prints a short summary in your terminal that you
+  can drop straight into Slack.
+* **A PDF for your phone.** It renders the day into a clean dark themed PDF and
+  pops it into Google Drive, so it actually looks good on your phone instead of
+  raw text.
+* **Effort levels.** Tell it how hard to work with light, medium, or heavy,
+  depending on how many tokens you want to spend.
+* **Run it as often as you like.** Running it again the same day just adds the new
+  stuff. It never overwrites or repeats what is already there.
 
-## What you get, every day
-
-- 🧠 **A teaching guide, not a changelog.** Each piece of work is explained from
-  scratch — the problem, the fix, real code with plain-English commentary, how to
-  re-implement it yourself, interview talking points, and lessons.
-- 🔭 **Captures every session at once.** It reads session transcripts from disk, so
-  it stitches together all your parallel/closed Claude windows — not just the one
-  you ran it in.
-- 🪶 **Honest.** Cleanly separates shipped code from setup/exploration. No invented
-  accomplishments.
-- 🌿 **A "Git skills" section.** Explains the day's actual git commands — what each
-  did, why, and how to run it yourself.
-- 💬 **A copy-paste Slack standup** printed in your terminal (no hyphens, minimal
-  punctuation — ready to paste).
-- 📱 **A dark-mode PDF** rendered for comfortable phone reading, auto-uploaded to
-  Google Drive.
-- 🎚️ **Effort levels** (`light` / `medium` / `heavy`) to control token usage.
-- ♻️ **Additive.** Run it again the same day and it only appends new work — never
-  overwrites or duplicates.
-
-Output lands in `~/Daily Log/` as `YYYY-MM - DD - <one line of the day>.md`.
-
----
+Everything lands in `~/Daily Log` as a dated file.
 
 ## Install
 
-> Requires [Claude Code](https://claude.com/claude-code). The skill lives in your
-> personal skills folder, so it works in every repo.
+You need Claude Code. The skill lives in your personal skills folder, so it works
+in every project.
 
-**Clone straight into your Claude skills folder:**
+Drop it straight into your Claude skills folder:
 
 ```bash
 git clone https://github.com/ShockRock2004/claude-daily-log.git ~/.claude/skills/daily-log
 ```
 
-…then restart Claude Code (or start a new session). That's it — type `/daily-log`.
+Then restart Claude Code (or start a new session) and type `/daily-log`. That is
+it.
 
-Prefer not to clone there? Download the ZIP, then run the installer from the
-unzipped folder:
+Would rather not clone there? Grab the ZIP, unzip it, and run:
 
 ```bash
 bash install.sh
 ```
 
----
+## What you need
 
-## Prerequisites
+The main part, reading your sessions and writing the guide, only needs Python 3,
+which you already have. The extra bits are optional and quietly skip themselves if
+a tool is missing, so nothing ever breaks.
 
-The core (reading sessions + writing the markdown guide) needs only **Python 3**,
-which you already have. The extras degrade gracefully — if a tool is missing, that
-step quietly skips and the skill still works.
+* For the phone friendly PDF you want Node.js and Google Chrome.
+* For the Google Drive upload you want rclone (`brew install rclone`).
 
-| Feature | Needs | Install (macOS) |
-|---|---|---|
-| Core daily guide | Python 3 | already installed |
-| Phone-readable PDF | Node.js + Google Chrome | `brew install node` + Chrome |
-| Google Drive upload | [`rclone`](https://rclone.org) | `brew install rclone` |
-
-### One-time Google Drive setup (optional)
+### Setting up Google Drive (optional)
 
 ```bash
 brew install rclone
-rclone config        # create a Google Drive remote named "gdrive" (browser login)
+rclone config
 ```
 
-Then uploads go to a `Daily Log` folder in your Drive automatically. By default
-Drive holds the **PDFs** and your laptop keeps the **markdown** sources — change
-the toggles at the top of `upload_to_drive.sh` if you want it the other way.
+When it asks, make a Google Drive remote and name it `gdrive` (it opens a browser
+so you can log in). After that, your daily files upload to a Daily Log folder in
+your Drive on their own. By default Drive keeps the PDFs and your laptop keeps the
+markdown. Flip the toggles at the top of `upload_to_drive.sh` if you want it the
+other way.
 
----
-
-## Usage
+## How to use it
 
 ```bash
-/daily-log                  # today, full detail (heavy)
-/daily-log medium           # today, fewer tokens
-/daily-log light            # today, cheapest pass
-/daily-log light 2026-06-25 # a past day, cheap
+/daily-log                  run today at full detail
+/daily-log medium           today, but spend fewer tokens
+/daily-log light            today, the cheapest pass
+/daily-log light 2026-06-25 a day in the past, cheaply
 ```
 
-**Effort levels** trade detail for token cost:
+Here is what each effort level does:
 
-| Level | What it documents | Pulls real code? |
-|---|---|---|
-| `light` | top 2–3 pieces, brief | no (commit messages only) |
-| `medium` | top ~5 pieces | the 2–3 most important |
-| `heavy` *(default)* | every distinct piece, full depth | yes, for each |
-
----
+* **Light** keeps it cheap. It writes up your top two or three things, briefly,
+  using just the commit messages, with at most one code snippet.
+* **Medium** is the balance. It covers around five things and pulls real code for
+  the two or three most important.
+* **Heavy** is the full treatment and the default. Every distinct thing, with real
+  code for each.
 
 ## How it works
 
-```
-your Claude sessions ──▶ collect_day.py ──▶ compact digest
-                                                  │
-                              the skill reads it, pulls real code,
-                              and writes a teaching-guide .md
-                                                  │
-                       render_pdf.sh: markdown ─(marked)▶ HTML ─(headless Chrome)▶ dark PDF
-                                                  │
-                       upload_to_drive.sh: PDF ─(rclone)▶ Google Drive
-```
+Under the hood it is four small pieces:
 
-- **`collect_day.py`** — reads every transcript under `~/.claude/projects/`, slices
-  by local date, and distills each session (your prompts, the reasoning, files
-  edited, git commands, and the day's commit map) into one digest.
-- **`SKILL.md`** — instructs Claude how to turn that digest into the teaching guide,
-  the Slack summary, and trigger the PDF + upload.
-- **`render_pdf.sh`** — markdown → styled HTML (`marked`) → PDF (headless Chrome),
-  dark Tailwind-slate theme, phone-sized.
-- **`upload_to_drive.sh`** — copies the PDF to Google Drive via `rclone`.
+* **`collect_day.py`** reads every transcript in `~/.claude/projects`, picks out
+  the day you asked for, and boils each session down (your prompts, the reasoning,
+  the files touched, the git commands, and the day's commits) into one compact
+  digest.
+* **`SKILL.md`** tells Claude how to turn that digest into the study guide, the
+  Slack summary, and the PDF.
+* **`render_pdf.sh`** turns the markdown into a styled web page with marked, then
+  prints it to a PDF using Chrome running invisibly. Dark Tailwind slate theme,
+  sized for a phone.
+* **`upload_to_drive.sh`** copies the PDF up to Google Drive with rclone.
 
-## Customize
+## Make it yours
 
-Tunables live at the top of `collect_day.py` (which projects to exclude, digest
-size, subagents) and `upload_to_drive.sh` (Drive remote/folder, PDF-only vs md
-too). The PDF look is the CSS block in `render_pdf.sh`.
+All the knobs live at the top of the files. `collect_day.py` lets you skip certain
+projects, change how big the digest gets, and toggle subagents. `upload_to_drive.sh`
+sets your Drive folder and whether to upload only the PDF or the markdown too. The
+look of the PDF is just the CSS block inside `render_pdf.sh`, so restyle away.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. Do whatever you like with it. See the LICENSE file.
 
----
-
-*Built with Claude Code. Nothing here is tied to any employer — it's a personal
-learning tool, free for anyone to use.*
+Built with Claude Code. It is not tied to any employer. It is just a personal
+learning tool that anyone is welcome to use.
