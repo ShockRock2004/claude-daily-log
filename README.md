@@ -1,3 +1,5 @@
+> **This repo has moved.** `daily-log` now lives in **[Kamar-Taj](https://github.com/ShockRock2004/kamar-taj)**, a single home for all my Claude Code skills. This repository is archived and kept only for history.
+
 # Claude Daily Log
 
 Tired of prompting Claude all day and letting it debug and build everything, but
